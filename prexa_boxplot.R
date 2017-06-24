@@ -4,6 +4,9 @@ library(dplyr)
 library(magrittr)
 library(data.table)
 
+
+
+
 get_meta_boxplot = function(silent_coef_p_q,
 misSense_coef_p_q,
 nonSense_coef_p_q,
@@ -72,10 +75,10 @@ targetedRegion_coef_p_q,
     
     
     arranged_names_pValue <- all_data %>%
-    group_by(all_labels) %>%
-    summarize(median_p = median(pValue)) %>%
-    arrange (median_p) %>%
-    select(all_labels)
+      group_by(all_labels) %>%
+      summarize(median_p = median(pValue)) %>%
+      arrange (median_p) %>%
+      select(all_labels)
     
     p_all_data = all_data
     
@@ -87,18 +90,18 @@ targetedRegion_coef_p_q,
     
     
     ###
-    
     arranged_names_qValue <- all_data %>%
-    group_by(all_labels) %>%
-    summarize(median_q = median(qValue)) %>%
-    arrange (median_q) %>%
-    select(all_labels)
+      group_by(all_labels) %>%
+      summarize(median_q = median(qValue)) %>%
+      arrange (median_q) %>%
+      select(all_labels)
     
     q_all_data = all_data
     
     q_all_data$all_labels <- factor(q_all_data$all_labels, levels = arranged_names_qValue$all_labels )
     
-    
+
+
     ggplot(data = q_all_data, aes(x = all_labels, y = -log10(qValue)))+
     geom_boxplot()+
     ggtitle ("boxplot of -log10(qValue)")
@@ -107,16 +110,17 @@ targetedRegion_coef_p_q,
     
     ###
     
-    
-    arranged_names_coef <- all_data %>%
-    group_by(all_labels) %>%
-    summarize(median_coef = median(coef)) %>%
-    arrange (median_coef) %>%
-    select(all_labels)
+    arranged_names_coefValue <- all_data %>%
+      group_by(all_labels) %>%
+      summarize(median_coef = median(coef)) %>%
+      arrange (desc(median_coef)) %>%
+      select(all_labels)
     
     coef_all_data = all_data
     
-    coef_all_data$all_labels <- factor(coef_all_data$all_labels, levels = arranged_names_coef$all_labels )
+    coef_all_data$all_labels <- factor(coef_all_data$all_labels, levels = arranged_names_coefValue$all_labels )
+    
+    
     
     ggplot(data = coef_all_data, aes(x = all_labels, y = exp(coef)))+
     geom_boxplot()+
