@@ -14,7 +14,7 @@ get_type_q_value = function(patient_type_data, data_type)
     
     which_sel = which(sum_type_counts>=10)
     
-    sel_type = sum_type_counts[,which_sel]
+    sel_type = data_outof_table[,which_sel]
     
     
     write.table(sel_type, paste(data_type,"cox_table.tsv",sep="_"), row.names = F, quote = F, sep = "\t")
