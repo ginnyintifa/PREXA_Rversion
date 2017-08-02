@@ -28,7 +28,7 @@ protein_id_dic=unique(data.frame(sorted_add_onlyID$protein_ID, sorted_add_onlyID
 colnames(protein_id_dic)=c("protein_ID","ID")
 
 ###find the full id for these seqs\
-which_is_in=which(domain_df$protein_ID %in% unique(sorted_add_onlyID$ID))
+which_is_in=which(domain_df$ID %in% unique(sorted_add_onlyID$ID))
 
 domain_df_sp=domain_df[which_is_in, ]
 
