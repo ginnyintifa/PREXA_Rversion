@@ -127,6 +127,8 @@ output_name, transpose_output_name)
 
 
 
+
+
 #sel_clinical=fread("stad_clinical.tsv",stringsAsFactors = F)
 #stomach_all=fread("STAD_whole.tsv",stringsAsFactors = F)
 #snp_domain_mapping=fread("snp_domain_mapping_sig_stad.tsv", stringsAsFactors = F)

@@ -132,17 +132,10 @@ get_domain_mapping = function(stomach_all, output_name)
 
 
 
-domain_data=fread("/Users/ginny/tcga_june_gastric_cancer/domain_sorted_df.tsv", header = T, stringsAsFactors = F)
+#domain_data=fread("/Users/ginny/tcga_june_gastric_cancer/domain_sorted_df.tsv", header = T, stringsAsFactors = F)
 
 
 ####1:42
 #stomach_all=fread("STAD_whole.tsv", header = T, stringsAsFactors = F)
 #get_domain_mapping (stomach_all, "snp_domain_mapping_sig.tsv")
-
-
-
-
-```
-
-
 

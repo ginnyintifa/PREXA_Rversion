@@ -91,8 +91,8 @@ get_ptm_mapping = function (stomach_all, output_name)
     
     cancer_snp=sapply(1:nrow(ptm_data),
     function(i){
-        protid=ptm_data$ID[i]
-        ptmpos=as.numeric(as.character(ptm_data$position[i]))
+        protid=ptm_data$ptm_ID[i]
+        ptmpos=as.numeric(as.character(ptm_data$ptm_position[i]))
         
         this_mut=treat_each_row(protid, ptmpos, new_snp_df)
         
@@ -115,21 +115,18 @@ get_ptm_mapping = function (stomach_all, output_name)
     
     
     colnames(t_cancer_snp)=c( "total","missense","nonsense","silent","splice_site","frame_shift_ins","frame_shift_del","in_frame_ins","in_frame_del")
-    
+    ## I want to get rid of PTM sites where no mutation happens around.
     
     t_cancer_snp_sig=t_cancer_snp[which(apply(t_cancer_snp,1,sum)>0),]
     
     ptm_data_sig=ptm_data[which(apply(t_cancer_snp,1,sum)>0),]
-    
-    #output_name ="snp_ptm_mapping_sig.tsv" for stomach cancer
-    #stomach_all=fread("stomach_all.tsv", header = T)
     
     write.table(data.frame(ptm_data_sig,t_cancer_snp_sig),output_name,row.names = F,quote=F,sep="\t")
 }
 
 
 
-ptm_data=fread("/Users/ginny/tcga_june_gastric_cancer/ptm_data_aggregate.tsv", header = T, stringsAsFactors = F)
+#ptm_data=fread("/Users/ginny/tcga_june_gastric_cancer/ptm_data_aggregate.tsv", header = T, stringsAsFactors = F)
 
 ##may consider putting this to the function parameters
 
