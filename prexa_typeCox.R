@@ -4,10 +4,17 @@ library(dplyr)
 library(magrittr)
 library(data.table)
 
+### I should be able to know which row is which prot/ptm/domain 
+### now I don't know...
+
+
+
 
 get_type_q_value = function(patient_type_data, data_type)
 {
+    
     data_outof_table = as.matrix(patient_type_data[,-1])
+    
     
     sum_type_counts = apply(data_outof_table,2,sum)
     
@@ -16,16 +23,39 @@ get_type_q_value = function(patient_type_data, data_type)
     
     sel_type = data_outof_table[,which_sel]
     
+    sel_df = data.frame(patient_id = patient_type_data[,1],sel_type)
     
-    write.table(sel_type, paste(data_type,"cox_table.tsv",sep="_"), row.names = F, quote = F, sep = "\t")
+    colnames(sel_df)[1]="patient_id"
+    
+    write.table(sel_df, paste(data_type,"cox_table.tsv",sep="_"), row.names = F, quote = F, sep = "\t")
+    
+    unit_identifier = colnames(sel_type)
+    t_sel_type = t(sel_type)
+    
+    t_sel_df = data.frame(units = unit_identifier,t_sel_type)
+    
+    colnames(t_sel_df) = c("units", patient_type_data[,1])
+    
+    write.table(t_sel_df, paste(data_type,"cox_table_transpose.tsv",sep="_"), row.names = F, quote = F, sep = "\t")
     
     
-    sel_type_id = colnames(sel_type)
+    ### get the identifier
+    
+    ### up to here is correct because the clinical info is not linked yet
+    
     
     if (ncol(sel_type)>0)
     {
+        
+        identifier = colnames(sel_type)
+        
         uni_p_value = rep(0, ncol(sel_type))
         coef_value = rep(0, ncol(sel_type))
+        
+        
+        ### need to sort the rows of sel_type in the order of sorted_clinical info
+        
+        
         
         
         for (p in 1: ncol(sel_type))
@@ -43,9 +73,15 @@ get_type_q_value = function(patient_type_data, data_type)
         
         q_value = p.adjust(uni_p_value, method = "BH")
         
-        cox_out = cbind(coef_value, uni_p_value, q_value)
+        
+        #### try to get the identifier of each row 
+        
+        cox_out = cbind(identifier, coef_value, uni_p_value, q_value)
         
         write.table(cox_out, paste(data_type,"cox_out.tsv",sep="_"), row.names = F, quote = F, sep = "\t")
+        
+        
+        
         
         
         return(cox_out)
@@ -53,37 +89,8 @@ get_type_q_value = function(patient_type_data, data_type)
         return (matrix(0,0,3))
     }
     
+    
+    
 }
 
-
-#STAD
-
-stad_patient_ptm = fread("stad_patient_ptm_table.tsv", stringsAsFactors = F, header = T)
-
-stad_patient_domain =fread("stad_patient_domain_table.tsv", stringsAsFactors = F, header = T)
-
-stad_patient_prot =fread("stad_patient_prot_table.tsv", stringsAsFactors = F, header = T)
-
-sel_clinical = fread("stad_clinical.tsv",stringsAsFactors = F)
-
-
-gender =sel_clinical$gender
-race = sel_clinical$race
-age = sel_clinical$age_at_initial_pathologic_diagnosis
-
-not_av_age = which(substr(age, 1,1)=="[")
-age[not_av_age] = mean(as.numeric(age[-not_av_age]))
-age = as.numeric(age)
-
-not_av_race = which(substr(race, 1,1)=="[")
-race[not_av_race] = "OTHER"
-race = as.factor(race)
-
-gender = as.factor(gender)
-
-
-
-ptm_coef_p_q = get_type_q_value(stad_patient_ptm,"ptm")
-domain_coef_p_q = get_type_q_value(stad_patient_domain,"domain")
-prot_coef_p_q = get_type_q_value(stad_patient_prot,"prot")
 

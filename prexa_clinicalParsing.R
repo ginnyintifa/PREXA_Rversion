@@ -107,8 +107,8 @@ get_clinical = function (tcga_follow_up, tcga_patient, output_name)
 
 #setwd("/Users/ginny/tcga_june_gastric_cancer/TCGA_STAD")
 
-#tcga_follow_up = fread("tcga_follow_up.txt", stringsAsFactors = F)
-#tcga_patient = fread("tcga_patient.txt", stringsAsFactors = F)
+#tcga_follow_up <- fread("tcga_follow_up.txt", stringsAsFactors = F)
+#tcga_patient <- fread("tcga_patient.txt", stringsAsFactors = F)
 #tcga_stad_patient_info = get_clinical(tcga_follow_up, tcga_patient, "stad_clinical.tsv")
 
 

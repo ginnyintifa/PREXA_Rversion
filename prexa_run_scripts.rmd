@@ -2,6 +2,11 @@
 
 
 
+
+
+
+
+
 # Map mutations to PTM sites
 ```{r}
 source("prexa_ptmMapping.R")
@@ -12,7 +17,7 @@ get_ptm_mapping(stomach_all, "snp_ptm_mapping_sig_stad.tsv")
 ```
 
 
-# Map mutations to domain
+#Map mutations to domain
 ```{r}
 source("prexa_domainMapping.R")
 domain_data = fread ("domain_sorted_df.tsv", stringsAsFactors=F)
@@ -424,8 +429,4 @@ get_data_for_heatmap (silent_coef_p_q,
                                 )
 
 ```
-
-
-
-
 

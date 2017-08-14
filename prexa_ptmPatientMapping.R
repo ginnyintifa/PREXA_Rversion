@@ -14,8 +14,8 @@ build_tb_each_colum=function(cdf,one_ptm)
     
     countit=rep(0,nrow(sel_clinical))
     
-    this_cdf <- cdf %>% filter (uni_swiss == one_ptm$ID | uni_trembl == one_ptm$ID)
-    this_pos <- one_ptm$position
+    this_cdf <- cdf %>% filter (uni_swiss == one_ptm$ptm_ID | uni_trembl == one_ptm$ptm_ID)
+    this_pos <- one_ptm$ptm_position
     
     if (nrow(this_cdf>=0))
     {
@@ -49,9 +49,9 @@ get_patient_ptm_mapping = function (sel_clinical, stomach_all, snp_ptm_mapping,
 output_name, transpose_output_name)
 {
     
-    ptm_to_map <- snp_ptm_mapping %>% select (protein_ID, ID, position, ptm_type)
+    ptm_to_map <- snp_ptm_mapping %>% select (ptm_ID, ptm_position, ptm_type)
     
-    prots_relevant = unique(snp_ptm_mapping$ID)
+    prots_relevant = unique(snp_ptm_mapping$ptm_ID)
     sel_snp <- stomach_all %>% filter (uni_swiss %in% prots_relevant | uni_trembl %in% prots_relevant)
     
     pos=as.list(sel_snp$aapos)
@@ -98,7 +98,7 @@ output_name, transpose_output_name)
     
     ###make the column names for the matrix, it should be the ptm sites
     
-    colnames_matrix=sapply(1:nrow(ptm_to_map), function(x) paste(ptm_to_map$ID[x],ptm_to_map$position[x],ptm_to_map$ptm_type[x],sep="_"))
+    colnames_matrix=sapply(1:nrow(ptm_to_map), function(x) paste(ptm_to_map$ptm_ID[x],ptm_to_map$ptm_position[x],ptm_to_map$ptm_type[x],sep="_"))
     
     
     sel_ptms=which(apply(patient_ptm_snp_tb,2,sum)>0)

@@ -1,13 +1,4 @@
 
-## 5 Map the variance to domains, and get the counts
-
-### consider only mappable mutations
-
-
-
-
-
-#domain_data=fread("domain_sorted_df.tsv", header = T, stringsAsFactors = F)
 
 library(dplyr)
 library(magrittr)
@@ -137,5 +128,7 @@ get_domain_mapping = function(stomach_all, output_name)
 
 ####1:42
 #stomach_all=fread("STAD_whole.tsv", header = T, stringsAsFactors = F)
-#get_domain_mapping (stomach_all, "snp_domain_mapping_sig.tsv")
+#get_domain_mapping (stomach_all, "snp_domain_mapping_sig_stad.tsv")
+
+
 
