@@ -15,8 +15,7 @@ get_clinical = function (tcga_follow_up, tcga_patient, output_name)
     
     tcga_follow_info <- tcga_follow_up %>%
     select(bcr_patient_barcode,vital_status,
-    last_contact_days_to, death_days_to,
-    new_tumor_event_dx_indicator,new_tumor_event_dx_indicator)%>%
+    last_contact_days_to, death_days_to)%>%
     filter(vital_status=="Alive" | vital_status =="Dead")
     ###get rid of the not availabel cases already
     
@@ -77,13 +76,9 @@ get_clinical = function (tcga_follow_up, tcga_patient, output_name)
     
     
     tcga_patient_info <- tcga_patient %>%
-    select(bcr_patient_barcode, tumor_grade, gender, race, ethnicity,
-    age_at_initial_pathologic_diagnosis, anatomic_neoplasm_subdivision,
-    tumor_grade, ajcc_pathologic_tumor_stage,tumor_status,
-    family_history_of_stomach_cancer, number_of_relatives_with_stomach_cancer,
-    targeted_molecular_therapy,radiation_treatment_adjuvant,
-    tumor_sample_procurement_country,initial_pathologic_dx_year,
-    lymph_nodes_examined, residual_tumor
+    select(bcr_patient_barcode, gender, race, ethnicity,
+    age_at_diagnosis, anatomic_neoplasm_subdivision,
+    tumor_status
     ) %>%
     filter(bcr_patient_barcode %in% ava_patients)
     
@@ -93,7 +88,7 @@ get_clinical = function (tcga_follow_up, tcga_patient, output_name)
     tcga_clinical <- tcga_patient_info %>%
     mutate(survival_ind = as_patient_order$'ava_p_ind',
     survival_time = as_patient_order$'ava_p_time')%>%
-    arrange(survival_ind)
+    arrange(survival_ind, desc(survival_time))
     
     # output_name = "tcga_stad_clinical.tsv"
     

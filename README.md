@@ -12,7 +12,7 @@ get_ptm_mapping(stomach_all, "snp_ptm_mapping_sig_stad.tsv")
 ```
 
 
-# Map mutations to domain
+#Map mutations to domain
 ```{r}
 source("prexa_domainMapping.R")
 domain_data = fread ("domain_sorted_df.tsv", stringsAsFactors=F)
@@ -23,7 +23,7 @@ get_domain_mapping (stomach_all, "snp_domain_mapping_sig.tsv")
 
 
 
-# Parse patient info
+#parse patient info
 
 ```{r}
 
@@ -35,12 +35,24 @@ tcga_stad_patient_info = get_clinical(tcga_follow_up, tcga_patient, "stad_clinic
 
 ```
 
+#In case you have more than one follow up data, need to merge after dealing with each one
+
+```{r}
+source("prexa_clinicalMerging.R")
+setwd("/data/ginny/PREXA/TCGA_BRCA")
+
+mymerged = get_clinical_merged(c("brca_clinical_1_5.tsv",
+                                  "brca_clinical_2_1.tsv", 
+                                  "brca_clinical_4_0.tsv"),
+                                "brca_clinical.tsv")
+ 
+```
 
 
 
 
 
-# Map domain mutations to patients
+#map domain mutations to patients
 ```{r}
 
 
@@ -57,7 +69,7 @@ get_patient_domain_mapping(sel_clinical, stomach_all, snp_domain_mapping,"stad_p
 
 
 
-# Map ptm mutations to patients
+#map ptm mutations to patients
 ```{r}
 source("prexa_ptmPatientMapping.R")
 setwd("/data/ginny/PREXA/TCGA_STAD")
@@ -72,7 +84,7 @@ get_patient_ptm_mapping(sel_clinical, stomach_all, snp_ptm_mapping,
 
 ```
 
-# Map protein mutation to patients
+#map protein mutation to patients
 ```{r}
 source("prexa_protPatientMapping.R")
 
@@ -110,7 +122,7 @@ whole_stad_matrix = get_locus_patient_matrix(sel_loci,"stad",sel_clinical)
 
 ```
 
-# Execute the following to get selected cox matrix (exclude hypermutated patients)
+#Execute the following to get selected cox matrix (exclude hypermutated patients)
 
 ```{r}
 source("prexa_selectForCox.R")
@@ -123,7 +135,7 @@ get_selected_cox_matrix(stad_whole,  stad_clinical, 3500, 1, "stad")
 
 
 
-# Execute the following code for the snp cox functions
+#Execute the following code for the snp cox functions
 ```{r}
 
 source("prexa_snpCox.R")
@@ -178,7 +190,7 @@ translationStartSite_coef_p_q = get_q_value("Translation_Start_Site", sel_loci,s
 ```
 
 
-# Execute the following code for the type(ptm, domain, prot) cox functions
+#Execute the following code for the type(ptm, domain, prot) cox functions
 ```{r}
 
 source("prexa_typeCox.R")
@@ -259,7 +271,7 @@ prot_sel_coef_p_q = get_type_q_value(sort_stad_sel_patient_prot,"prot")
 
 ```
 
-# Get the data for boxplot
+# get the data for boxplot
 
 ```{r}
 

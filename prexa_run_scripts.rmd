@@ -2,11 +2,6 @@
 
 
 
-
-
-
-
-
 # Map mutations to PTM sites
 ```{r}
 source("prexa_ptmMapping.R")
@@ -40,6 +35,18 @@ tcga_stad_patient_info = get_clinical(tcga_follow_up, tcga_patient, "stad_clinic
 
 ```
 
+#In case you have more than one follow up data, need to merge after dealing with each one
+
+```{r}
+source("prexa_clinicalMerging.R")
+setwd("/data/ginny/PREXA/TCGA_BRCA")
+
+mymerged = get_clinical_merged(c("brca_clinical_1_5.tsv",
+                                  "brca_clinical_2_1.tsv", 
+                                  "brca_clinical_4_0.tsv"),
+                                "brca_clinical.tsv")
+ 
+```
 
 
 
