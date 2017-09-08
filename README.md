@@ -1,4 +1,18 @@
+# Prepare tcga data
 
+```{r}
+source("prexa_tcgaPrep.R")
+
+## need to direct to correct directory 
+cancer_muse=fread("STAD_muse.maf", stringsAsFactors = F)
+cancer_mutect=fread("STAD_mutect.maf", stringsAsFactors = F)
+cancer_somatic=fread("STAD_somatic.maf", stringsAsFactors = F)
+cancer_varscan=fread("STAD_varscan.maf", stringsAsFactors = F)
+ 
+stomach_cancer = get_tcga_whole(cancer_muse, cancer_mutect, cancer_somatic, cancer_varscan, "STAD")
+# 
+
+```
 
 
 
