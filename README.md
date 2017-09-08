@@ -32,7 +32,7 @@ source("prexa_domainMapping.R")
 domain_data = fread ("domain_sorted_df.tsv", stringsAsFactors=F)
 setwd("/data/ginny/PREXA/TCGA_STAD")
 stomach_all = fread("STAD_whole.tsv", stringsAsFactors= F)
-get_domain_mapping (stomach_all, "snp_domain_mapping_sig.tsv")
+get_domain_mapping (stomach_all, "snp_domain_mapping_sig_stad.tsv")
 ```
 
 
@@ -78,7 +78,11 @@ sel_clinical = fread("stad_clinical.tsv", stringsAsFactors=F)
 stomach_all=fread("STAD_whole.tsv",stringsAsFactors = F)
 
 snp_domain_mapping = fread("snp_domain_mapping_sig.tsv", stringsAsFactors=F)
-get_patient_domain_mapping(sel_clinical, stomach_all, snp_domain_mapping,"stad_patient_domain_table.tsv","stad_patient_domain_table_transpose.tsv")
+get_patient_domain_mapping(sel_clinical, 
+stomach_all,
+snp_domain_mapping,
+"stad_patient_domain_table.tsv",
+"stad_patient_domain_table_transpose.tsv")
 ```
 
 
@@ -92,7 +96,9 @@ sel_clinical=fread("stad_clinical.tsv",stringsAsFactors = F)
 stomach_all=fread("STAD_whole.tsv",stringsAsFactors = F)
 snp_ptm_mapping=fread("snp_ptm_mapping_sig_stad.tsv", stringsAsFactors = F)
 
-get_patient_ptm_mapping(sel_clinical, stomach_all, snp_ptm_mapping,
+get_patient_ptm_mapping(sel_clinical, 
+stomach_all,
+snp_ptm_mapping,
 "stad_patient_ptm_table.tsv",
 "stad_patient_ptm_table_transpose.tsv")
 
@@ -107,7 +113,10 @@ setwd("/data/ginny/PREXA/TCGA_STAD")
 sel_clinical = fread("stad_clinical.tsv", stringsAsFactors=F)
 
 stomach_all=fread("STAD_whole.tsv",stringsAsFactors = F)
-get_patient_prot_mapping(sel_clinical, stomach_all,"stad_patient_prot_table.tsv","stad_patient_prot_table_transpose.tsv")
+get_patient_prot_mapping(sel_clinical,
+stomach_all,
+"stad_patient_prot_table.tsv",
+"stad_patient_prot_table_transpose.tsv")
 
 ```
 
