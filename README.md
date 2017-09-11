@@ -77,7 +77,7 @@ sel_clinical = fread("stad_clinical.tsv", stringsAsFactors=F)
 
 stomach_all=fread("STAD_whole.tsv",stringsAsFactors = F)
 
-snp_domain_mapping = fread("snp_domain_mapping_sig.tsv", stringsAsFactors=F)
+snp_domain_mapping = fread("snp_domain_mapping_sig_stad.tsv", stringsAsFactors=F)
 get_patient_domain_mapping(sel_clinical, 
 stomach_all,
 snp_domain_mapping,
